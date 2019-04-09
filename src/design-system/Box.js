@@ -1,0 +1,85 @@
+import system from '../utils/System';
+import hoverColors from '../utils/hoverColors';
+
+const Box = system(
+  'Box',
+  {},
+  // core
+  'color',
+  'fontSize',
+  'space',
+  'width',
+  // typography
+  'fontFamily',
+  'fontWeight',
+  'letterSpacing',
+  'lineHeight',
+  'textAlign',
+  // layout
+  'display',
+  'height',
+  'maxHeight',
+  'maxWidth',
+  'minHeight',
+  'minWidth',
+  'size',
+  // flexbox
+  'alignContent',
+  'alignItems',
+  'alignSelf',
+  'flex',
+  'flexBasis',
+  'flexDirection',
+  'flexWrap',
+  'justifyContent',
+  'justifyItems',
+  'justifySelf',
+  'order',
+  // grid layout
+  'gridArea',
+  'gridAutoFlow',
+  'gridAutoRows',
+  'gridColumn',
+  'gridColumnGap',
+  'gridGap',
+  'gridRow',
+  'gridRowGap',
+  'gridTemplateAreas',
+  'gridTemplateColumns',
+  'gridTemplateRows',
+  // borders
+  'border',
+  'borderBottom',
+  'borderColor',
+  'borderLeft',
+  'borderRadius',
+  'borderRight',
+  'borderStyle',
+  'borderTop',
+  'borderWidth',
+  // position
+  'bottom',
+  'left',
+  'position',
+  'right',
+  'top',
+  'zIndex',
+  // misc
+  'background',
+  'backgroundImage',
+  'backgroundPosition',
+  'backgroundRepeat',
+  'backgroundSize',
+  'boxShadow',
+  'opacity',
+  'overflow',
+  'textStyle',
+  'colorStyle',
+  'buttonStyle',
+  props => ({
+    color: hoverColors(props),
+    backgroundColor: hoverColors({ ...props, _bg: true }),
+  }),
+);
+
+export default Box;
