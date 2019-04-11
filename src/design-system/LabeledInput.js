@@ -3,14 +3,14 @@ import { camelCase } from 'lodash';
 import Label from './Label';
 import InputField from './InputField';
 
-const LabeledInput = ({ label, labelProps, ...props }) => {
-  const name = props.name || camelCase(label);
+const LabeledInput = ({ label, labelProps, children, ...props }) => {
+  const { name = camelCase(label) } = props;
   return (
     <>
       <Label htmlFor={name} {...labelProps}>
         {label}
       </Label>
-      <InputField name={name} {...props} />
+      {children || <InputField name={name} {...props} />}
     </>
   );
 };

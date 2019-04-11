@@ -22,10 +22,12 @@ import {
   Section,
   Select,
   Text,
+  ToggleButton,
   VideoPlayer,
+  CheckboxButton,
 } from '../design-system';
-import Grid from '../design-system/Grid';
 import LabeledInput from '../design-system/LabeledInput';
+import FormField from '../design-system/FormField';
 
 const Home = inject('app')(
   observer(({ app, t }) => (
@@ -155,12 +157,18 @@ const Home = inject('app')(
             </Button>
           </Form>
           <Form p={4} pt={0} my={2} boxShadow={2} bg="info" width="65%">
-            <Heading>Another Form</Heading>
-            <LabeledInput label="First Name" />
-            <LabeledInput label="Last Name" />
-            <LabeledInput label="Date of Birth" type="date" />
-            <LabeledInput label="City" />
-            <Flex justifyContent="space-between" py={2}>
+            <Heading gridColumn="1/3">Another Form</Heading>
+            <FormField boxShadow={0} name="firstName" label="First Name" />
+            <FormField
+              name="gender"
+              type="radio"
+              options={[
+                { value: 'f', label: 'Female', icon: 'female' },
+                { value: 'm', label: 'Male', icon: 'male' },
+              ]}
+              label="Gender"
+            />
+            <Flex gridColumn="1/3" justifyContent="space-between" py={2}>
               <Button secondary>Cancel</Button>
               <Button primary>OK</Button>
             </Flex>
@@ -171,15 +179,15 @@ const Home = inject('app')(
           <Box width={300}>
             <Select
               options={[
-                { icon: 'chevron-right', value: 1, label: 'item 1' },
-                { icon: 'check', value: 2, label: 'item 2' },
+                {
+                  icon: 'cog',
+                  value: 1,
+                  label: 'Settings',
+                  iconColor: 'primary',
+                },
+                { value: 2, label: 'item 2', iconColor: 'red' },
+                { value: 3, label: 'item 3', iconColor: 'transparent' },
               ]}
-              getOptionLabel={option => (
-                <Flex alignItems="center">
-                  <Icon name={option.icon} mr={2} />
-                  <Text>{option.label}</Text>
-                </Flex>
-              )}
             />
           </Box>
         </Section>
