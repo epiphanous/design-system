@@ -14,21 +14,25 @@ const iconTypes = {
   toggle: { checked: 'toggle-on', unchecked: 'toggle-off' },
 };
 
-const StyledToggleButton = system('StyledToggleButton', {
-  extend: Flex,
-  alignItems: 'center',
-});
+const StyledToggleButton = system(
+  'StyledToggleButton',
+  {
+    extend: Flex,
+    alignItems: 'center',
+  },
+  () => ({
+    cursor: 'pointer',
+  }),
+);
 
 const ToggleButton = ({
   id,
   name,
+  value = 1,
   label,
   type = 'toggle',
-  onToggle = newValue => {
-    console.log({ name, newValue });
-  },
+  onChange,
   checked = false,
-  value = 1,
   size = 32,
   labelPosition = 'after',
   ...props
@@ -39,16 +43,15 @@ const ToggleButton = ({
   const labelComp = lbl(label, name || id);
   return (
     <StyledToggleButton
-      onClick={() => onToggle(checked ? '' : value)}
+      onClick={onChange && (() => onChange(checked ? '' : value))}
       {...props}
     >
       <input
-        type={type}
+        type="hidden"
         name={name}
         id={id || name}
-        checked={checked}
-        value={value}
-        style={{ display: 'none' }}
+        value={checked ? value : ''}
+        readOnly
       />
       {label && before && labelComp}
       <Icon
@@ -62,13 +65,13 @@ const ToggleButton = ({
   );
 };
 
-ToggleButton.displayName = 'ToggleInput';
+ToggleButton.displayName = 'ToggleButton';
 ToggleButton.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   onToggle: PropTypes.func,
-  checked: PropTypes.boolean,
+  checked: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   size: PropTypes.number,
   labelPosition: PropTypes.oneOf(['before', 'after']),

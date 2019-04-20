@@ -1,8 +1,9 @@
+import React from 'react';
 import { themeGet } from 'styled-system';
 import system from '../utils/System';
 import Box from './Box';
 
-const InputField = system(
+const StyledInputField = system(
   'InputField',
   {
     extend: Box,
@@ -14,6 +15,7 @@ const InputField = system(
     flex: 1,
     border: 0,
     p: 2,
+    value: '',
   },
   props => ({
     borderRadius: props.plain && 0,
@@ -31,6 +33,13 @@ const InputField = system(
       display: 'none',
     },
   }),
+);
+
+const InputField = ({ onChange, ...props }) => (
+  <StyledInputField
+    onChange={onChange && (event => onChange(event.target.value))}
+    {...props}
+  />
 );
 
 export default InputField;

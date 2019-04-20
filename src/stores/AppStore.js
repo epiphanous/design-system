@@ -13,6 +13,8 @@ export default class AppStore {
 
   @observable trackingData = new Map();
 
+  @observable formValues = new Map();
+
   constructor(props = {}) {
     this.root = props.root || global || window || {};
   }
@@ -64,5 +66,26 @@ export default class AppStore {
   trackScreenView(screen, data) {
     const event = Object.assign({ event: 'screenview', screen }, data);
     this.trackEvent(event);
+  }
+
+  getFormData(formKey) {
+    if (!this.formValues.has(formKey)) {
+      this.formValues.set(formKey, new Map());
+    }
+    return this.formValues.get(formKey);
+  }
+
+  getFormValue(formKey, fieldKey) {
+    const fields = this.getFormData(formKey);
+    const fieldValue = fields.get(fieldKey) || '';
+    console.log({ method: 'get', formKey, fieldKey, fieldValue });
+    return fields.get(fieldKey) || '';
+  }
+
+  @action
+  setFormValue(formKey, fieldKey, fieldValue) {
+    console.log({ method: 'set', formKey, fieldKey, fieldValue });
+    const fields = this.getFormData(formKey);
+    fields.set(fieldKey, fieldValue);
   }
 }

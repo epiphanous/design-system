@@ -10,7 +10,7 @@ const iconAndText = ({
   iconSize = 24,
   iconColor = 'inherit',
 }) => (
-  <Flex alignItems="center">
+  <Flex alignItems="center" color="on.background" bg="transparent">
     <Icon name={icon} color={iconColor} size={iconSize} mr={2} />
     <Text ml>{label}</Text>
   </Flex>
@@ -20,12 +20,16 @@ const SelectWrapper = ({
   options,
   getOptionLabel = iconAndText,
   menuPlacement = 'auto',
+  onChange,
+  value,
   ...props
 }) => (
   <Select
     options={options}
     getOptionLabel={getOptionLabel}
     menuPlacement={menuPlacement}
+    value={options.find(option => option.value === value)}
+    onChange={onChange && (option => onChange(option.value))}
     {...props}
   />
 );

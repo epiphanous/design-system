@@ -90,6 +90,8 @@ const Home = inject('app')(
               maxWidth="12rem"
               name="search"
               placeholder="type something..."
+              value={app.getFormValue('fields', 'search')}
+              onChange={value => app.setFormValue('fields', 'search', value)}
               borderRadius="sm"
             />
             <IconButton
@@ -112,6 +114,8 @@ const Home = inject('app')(
               my={2}
               label="Amount:"
               icon="check"
+              value={app.getFormValue('fields', 'amount')}
+              onChange={value => app.setFormValue('fields', 'amount', value)}
             />
           </Flex>
         </Section>
@@ -131,6 +135,7 @@ const Home = inject('app')(
         <Section>
           <Heading>Forms</Heading>
           <Form
+            name="aform"
             p={4}
             pt={0}
             mb={2}
@@ -142,10 +147,13 @@ const Home = inject('app')(
             <Heading gridColumn="1/3">My Form</Heading>
             {['First Name', 'Last Name', 'Date of Birth', 'City'].map(label => (
               <LabeledInput
+                key={label}
                 boxShadow={0}
                 border={1}
                 borderRadius="sm"
                 borderStyle="dotted"
+                value={app.getFormValue('aform', label)}
+                onChange={value => app.setFormValue('aform', label, value)}
                 label={`${label}:`}
                 gridColumn="2/3"
                 type={/date/i.test(label) ? 'date' : 'text'}
@@ -156,17 +164,52 @@ const Home = inject('app')(
               Submit
             </Button>
           </Form>
-          <Form p={4} pt={0} my={2} boxShadow={2} bg="info" width="65%">
-            <Heading gridColumn="1/3">Another Form</Heading>
-            <FormField boxShadow={0} name="firstName" label="First Name" />
+          <Form
+            name="anotherForm"
+            p={4}
+            pt={0}
+            my={2}
+            boxShadow={2}
+            bg="info"
+            width="65%"
+          >
+            <Heading as="h3" gridColumn="1/3">
+              Another Form
+            </Heading>
+            <FormField
+              value={app.getFormValue('anotherForm', 'firstName')}
+              onChange={value =>
+                app.setFormValue('anotherForm', 'firstName', value)
+              }
+              name="firstName"
+              label="First Name"
+            />
             <FormField
               name="gender"
               type="radio"
+              value={app.getFormValue('anotherForm', 'gender')}
               options={[
                 { value: 'f', label: 'Female', icon: 'female' },
                 { value: 'm', label: 'Male', icon: 'male' },
               ]}
               label="Gender"
+              onChange={value =>
+                app.setFormValue('anotherForm', 'gender', value)
+              }
+            />
+            <FormField
+              label="Color"
+              type="select"
+              onChange={value =>
+                app.setFormValue('anotherForm', 'color', value)
+              }
+              value={app.getFormValue('anotherForm', 'color')}
+              options={[
+                { value: 'red', label: 'Red', iconColor: 'red' },
+                { value: 'green', label: 'Green', iconColor: 'green' },
+                { value: 'blue', label: 'Blue', iconColor: 'blue' },
+                { value: 'yellow', label: 'Yellow', iconColor: 'yellow' },
+              ]}
             />
             <Flex gridColumn="1/3" justifyContent="space-between" py={2}>
               <Button secondary>Cancel</Button>

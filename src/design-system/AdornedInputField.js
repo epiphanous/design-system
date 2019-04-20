@@ -16,14 +16,14 @@ const targetedProps = (props, prefix) => {
   const obj = {};
   const plen = prefix.length;
   const pfxPattern = new RegExp(`^${prefix}`);
-  for (const key in props) {
+  Object.keys(props).forEach(key => {
     if (key.startsWith(prefix) && plen < key.length) {
       const newKey = key.replace(pfxPattern, '');
       obj[newKey.substring(0, 1).toLowerCase() + newKey.substring(1)] =
         props[key];
       delete props[key];
     }
-  }
+  });
   return obj;
 };
 
@@ -34,28 +34,27 @@ const AdornedInputField = ({
   labelPlacement = 'left',
   p = 2,
   borderRadius = 'sm',
+  onChange,
+  value,
   ...props
 }) => {
   const iconProps = targetedProps(props, 'icon');
   const inputProps = targetedProps(props, 'input');
   const labelProps = targetedProps(props, 'label');
   const wantsBr = ['xs', 'sm', 'md', 'lg'].includes(borderRadius);
+  const pl = wantsBr ? x => (iconPlacement === x ? 'l' : 'r') : () => '';
   if (icon) {
-    const pl = wantsBr ? (iconPlacement === 'left' ? 'l' : 'r') : '';
-    iconProps.borderRadius = `${borderRadius}${pl}`;
+    iconProps.borderRadius = `${borderRadius}${pl('left')}`;
   }
   if (label) {
-    const pl = wantsBr ? (labelPlacement === 'left' ? 'l' : 'r') : '';
-    labelProps.borderRadius = `${borderRadius}${pl}`;
+    labelProps.borderRadius = `${borderRadius}${pl('right')}`;
   }
   if (icon && label) {
     inputProps.borderRadius = 'none';
   } else if (icon) {
-    const pl = wantsBr ? (iconPlacement === 'left' ? 'r' : 'l') : '';
-    inputProps.borderRadius = `${borderRadius}${pl}`;
+    inputProps.borderRadius = `${borderRadius}${pl('right')}`;
   } else {
-    const pl = wantsBr ? (labelPlacement === 'left' ? 'r' : 'l') : '';
-    inputProps.borderRadius = `${borderRadius}${pl}`;
+    inputProps.borderRadius = `${borderRadius}${pl('right')}`;
   }
   return (
     <StyledAdornedInputField borderRadius={borderRadius} {...props}>
@@ -67,7 +66,13 @@ const AdornedInputField = ({
         ) : (
           { label }
         ))}
-      <InputField plain p={p} {...inputProps} />
+      <InputField
+        plain
+        p={p}
+        value={value}
+        onChange={onChange}
+        {...inputProps}
+      />
       {icon &&
         (typeof icon === 'string' ? (
           <IconButton p={p} name={icon} size={32} {...iconProps} />
