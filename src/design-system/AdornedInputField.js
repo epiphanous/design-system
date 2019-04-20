@@ -36,6 +36,7 @@ const AdornedInputField = ({
   borderRadius = 'sm',
   onChange,
   value,
+  type = 'text',
   ...props
 }) => {
   const iconProps = targetedProps(props, 'icon');
@@ -69,6 +70,7 @@ const AdornedInputField = ({
       <InputField
         plain
         p={p}
+        type={type}
         value={value}
         onChange={onChange}
         {...inputProps}

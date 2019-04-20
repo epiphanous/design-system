@@ -1,6 +1,7 @@
 import React from 'react';
 import { RadioButton } from './ToggleButton';
 import Flex from './Flex';
+import uniqid from '../utils/uniqid';
 
 const RadioGroup = ({
   name,
@@ -14,7 +15,7 @@ const RadioGroup = ({
     <Flex flexDirection={vertical && 'column'} {...props}>
       {options.map((option, i) => (
         <RadioButton
-          key={`${name}-${i}`}
+          key={uniqid()}
           name={name}
           checked={value === option.value}
           mr={!vertical && 2}

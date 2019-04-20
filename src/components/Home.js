@@ -22,10 +22,9 @@ import {
   Section,
   Select,
   Text,
-  ToggleButton,
   VideoPlayer,
-  CheckboxButton,
 } from '../design-system';
+import uniqid from '../utils/uniqid';
 import LabeledInput from '../design-system/LabeledInput';
 import FormField from '../design-system/FormField';
 
@@ -114,6 +113,7 @@ const Home = inject('app')(
               my={2}
               label="Amount:"
               icon="check"
+              type="number"
               value={app.getFormValue('fields', 'amount')}
               onChange={value => app.setFormValue('fields', 'amount', value)}
             />
@@ -147,7 +147,7 @@ const Home = inject('app')(
             <Heading gridColumn="1/3">My Form</Heading>
             {['First Name', 'Last Name', 'Date of Birth', 'City'].map(label => (
               <LabeledInput
-                key={label}
+                key={uniqid()}
                 boxShadow={0}
                 border={1}
                 borderRadius="sm"
