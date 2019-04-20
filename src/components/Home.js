@@ -53,7 +53,7 @@ const Home = inject('app')(
               <Image
                 borderRadius="0.25em 0.25em 0 0"
                 width="100%"
-                src="//images.unsplash.com/photo-1553618551-fba689030290?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80"
+                src="https://images.unsplash.com/photo-1533208087231-c3618eab623c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1963&q=80"
               />
               <Text
                 position="absolute"
@@ -63,12 +63,10 @@ const Home = inject('app')(
                 p={2}
                 bg="rgba(150,150,150,.5)"
               >
-                This is a card!
+                Photo by Steve Johnson
               </Text>
             </Relative>
-            <Text p={2}>
-              It's estimated that this painting could sell for $70 million.
-            </Text>
+            <Text p={2}>This painting could sell for $70 million.</Text>
           </Card>
         </Section>
         <Section>
@@ -76,6 +74,8 @@ const Home = inject('app')(
           <VideoPlayer
             width={640}
             height={(640 * 9) / 16}
+            borderRadius="sm"
+            overflow="hidden"
             src="https://www.youtube.com/watch?v=nCVYEqc_Hw4"
           />
         </Section>
