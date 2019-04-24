@@ -37,4 +37,4 @@ export const Heading6 = system('Heading6', {
   className: 'heading',
 });
 
-export default Heading2;
+export default Heading3;

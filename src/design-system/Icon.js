@@ -1,9 +1,10 @@
 import React from 'react';
-import { getWidth } from 'styled-system';
 import cleanElement from 'clean-element';
 import system from '../utils/System';
-import icons from './icons';
-import Flex from './Flex';
+import theme from './theme';
+import Box from './Box';
+
+const { icons } = theme;
 
 // Remove `space` props from the `svg` element prevents react warnings
 const CleanSvg = cleanElement('svg');
@@ -17,7 +18,7 @@ const Base = props => {
   }
 
   return (
-    <Flex display="inline-flex" {...otherProps}>
+    <Box display="inline-block" {...otherProps}>
       <CleanSvg
         viewBox={icon.viewBox}
         width={size}
@@ -26,7 +27,7 @@ const Base = props => {
       >
         <path d={icon.body[0].props.d} />
       </CleanSvg>
-    </Flex>
+    </Box>
   );
 };
 
@@ -34,11 +35,11 @@ const Icon = system(
   'Icon',
   {
     extend: Base,
-    name: 'Check',
+    name: 'check',
     size: 24,
   },
   props => ({
-    minWidth: getWidth(props.size),
+    minWidth: props.size,
   }),
 );
 

@@ -1,63 +1,46 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import system from '../utils/System';
-import Box from './Box';
-import Flex from './Flex';
-import Icon from './Icon';
-import hoverColors from '../utils/hoverColors';
+import { Text, Flex, Icon } from '.';
 
 const vert = lp => lp === 'top' || lp === 'bottom';
 const before = lp => lp === 'left' || lp === 'top';
-
-const HoverFlex = system(
-  'HoverFlex',
-  {
-    extend: Flex,
-    labelPosition: 'right',
-    disabled: false,
-  },
-  props => ({
-    color: hoverColors(props),
-    backgroundColor: hoverColors({ ...props, _bg: true }),
-    flexDirection: vert(props.labelPosition) ? 'column' : 'row',
-    flexWrap: 'nowrap',
-    whiteSpace: 'nowrap',
-    alignItems: 'center',
-    '& > svg': {
-      flexOrder: before(props.labelPosition) ? 2 : 1,
-    },
-    '& > div': {
-      flexOrder: before(props.labelPosition) ? 1 : 2,
-    },
-    '&:hover': {
-      color: hoverColors({ ...props, _hover: true }),
-      backgroundColor: hoverColors({ ...props, _hover: true, _bg: true }),
-    },
-  }),
-);
 
 const IconButton = ({
   name,
   size = 24,
   label,
   children,
-  disabled,
+  labelPosition = 'right',
+  labelMargin = 1,
+  hoverable = true,
+  disabled = false,
   ...props
 }) => (
-  <HoverFlex className={`hoverable${disabled ? ' disabled' : ''}`} {...props}>
-    <Icon name={name} size={size} />
-    <Box className={disabled && 'disabled'}>{children || label}</Box>
-  </HoverFlex>
+  <Flex
+    {...props}
+    disabled={disabled}
+    hoverable={hoverable}
+    flexDirection={vert(labelPosition) ? 'column' : 'row'}
+    flexWrap="nowrap"
+    whiteSpace="nowrap"
+    alignItems="center"
+  >
+    <Icon name={name} size={size} order={before(labelPosition) ? 2 : 1} />
+    <Text
+      bg="transparent"
+      disabled={disabled}
+      order={before(labelPosition) ? 1 : 2}
+      ml={labelPosition === 'right' && labelMargin}
+      mr={labelPosition === 'left' && labelMargin}
+      mt={labelPosition === 'bottom' && labelMargin}
+      mb={labelPosition === 'top' && labelMargin}
+      textStyle="truncate"
+    >
+      {children || label}
+    </Text>
+  </Flex>
 );
 
 IconButton.displayName = 'IconButton';
-
-IconButton.propTypes = {
-  name: PropTypes.string.isRequired,
-  size: PropTypes.number,
-  color: PropTypes.string,
-  label: PropTypes.string,
-  ...Flex.propTypes,
-};
 
 export default IconButton;

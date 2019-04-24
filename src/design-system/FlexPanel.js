@@ -7,10 +7,10 @@ const FlexPanel = system(
     extend: Flex,
     flexDirection: 'column',
   },
-  props => ({
+  (props) => ({
     justifyContent: props.centered && 'center',
     alignItems: props.centered && 'center',
-  }),
+  })
 );
 
 export default FlexPanel;

@@ -5,8 +5,8 @@ const Card = system('Card', {
   extend: Box,
   borderRadius: 'sm',
   boxShadow: 4,
-  maxWidth: '20rem',
   className: 'surface',
+  bg: 'surface',
 });
 
 export default Card;

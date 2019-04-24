@@ -1,7 +1,8 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { Home, NotFound, PageView, GlobalStyles } from '.';
+import { Home, NotFound, PageView } from '.';
+import { GlobalStyles } from '../design-system/theme';
 
 @inject('app')
 @withRouter

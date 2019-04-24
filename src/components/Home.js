@@ -11,7 +11,8 @@ import {
   Flex,
   Form,
   Heading,
-  Heading1,
+  Heading2,
+  Heading5,
   Icon,
   IconButton,
   Image,
@@ -32,10 +33,10 @@ const Home = inject('app')(
   observer(({ app, t }) => (
     <ScreenView screen="home">
       <Section width="70%" mx="auto" mt={50}>
-        <Heading1>
+        <Heading2>
           <Icon name="chevron-right" size={48} mr={2} />
           {capitalize(t('greeting'))} from {app.appInfoString}
-        </Heading1>
+        </Heading2>
         <Text lineHeight="copy">
           Welcome to the app. This is some normal text. Lorem ipsum dolor sit
           amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -48,7 +49,7 @@ const Home = inject('app')(
         </Text>
         <Section>
           <Heading>Cards</Heading>
-          <Card mx="auto" fontSize={2}>
+          <Card mx="auto" fontSize={3} maxWidth={640}>
             <Relative>
               <Image
                 borderRadius="0.25em 0.25em 0 0"
@@ -144,7 +145,7 @@ const Home = inject('app')(
             layout="horizontal"
             width="65%"
           >
-            <Heading gridColumn="1/3">My Form</Heading>
+            <Heading5 gridColumn="1/3">My Form</Heading5>
             {['First Name', 'Last Name', 'Date of Birth', 'City'].map(label => (
               <LabeledInput
                 key={uniqid()}
@@ -173,9 +174,7 @@ const Home = inject('app')(
             bg="info"
             width="65%"
           >
-            <Heading as="h3" gridColumn="1/3">
-              Another Form
-            </Heading>
+            <Heading5 gridColumn="1/3">Another Form</Heading5>
             <FormField
               value={app.getFormValue('anotherForm', 'firstName')}
               onChange={value =>

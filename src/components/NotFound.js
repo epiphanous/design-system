@@ -6,11 +6,11 @@ const NotFound = inject('app')(
   observer(({ location }) => (
     <MaxPanel centered>
       <Card p={4}>
-        <Flex fontSize={5}>
+        <Flex fontSize={9}>
           <Icon color="error" name="error" size={64} />
           <Text ml={2}>404 &mdash; not found</Text>
         </Flex>
-        <Text fontSize={3}>
+        <Text>
           Can't find <code>{location.pathname}</code>.{' '}
           <Link display="block" to="/">
             Go home

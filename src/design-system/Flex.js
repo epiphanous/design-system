@@ -7,10 +7,10 @@ const Flex = system(
     extend: Box,
     display: 'flex',
   },
-  props => ({
+  (props) => ({
     justifyContent: props.centered && 'center',
     alignItems: props.centered && 'center',
-  }),
+  })
 );
 
 export default Flex;

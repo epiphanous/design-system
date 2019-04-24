@@ -16,6 +16,7 @@ const GlobalStyles = () => (
 
     * {
      box-sizing: border-box;
+     border-color: ${theme.colors.border};
     }
 
     html {
@@ -31,7 +32,7 @@ const GlobalStyles = () => (
 
     body {
       font-family: ${theme.fontFamily};
-      font-size: ${theme.fontSizes[3]};
+      font-size: ${theme.fontSizes[5]};
       color: ${theme.colors.on.background};
       background: ${theme.colors.background};
     }
@@ -45,15 +46,30 @@ const GlobalStyles = () => (
     .heading {
       font-family: ${theme.headingsFamily};
       font-weight: bold;
-      font-size: ${theme.fontSizes[3]};
     }
 
-    h1.heading {
-      font-size: ${theme.fontSizes[6]}
+    h1 {
+      font-size: ${theme.fontSizes[10]};
     }
 
-    h2.heading {
-      font-size: ${theme.fontSizes[5]}
+    h2 {
+      font-size: ${theme.fontSizes[9]};
+    }
+
+    h3 {
+      font-size: ${theme.fontSizes[8]};
+    }
+
+    h4 {
+      font-size: ${theme.fontSizes[7]};
+    }
+
+    h5 {
+      font-size: ${theme.fontSizes[6]};
+    }
+
+    h6 {
+      font-size: ${theme.fontSizes[5]};
     }
 
     .surface {

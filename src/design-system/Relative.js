@@ -1,5 +1,5 @@
 import system from '../utils/System';
-import Box from './Box';
+import { Box } from '.';
 
 const Relative = system(
   'Relative',
@@ -7,9 +7,9 @@ const Relative = system(
     extend: Box,
     position: 'relative',
   },
-  () => ({
+  (props) => ({
     position: 'relative',
-  }),
+  })
 );
 
 export default Relative;
