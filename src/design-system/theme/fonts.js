@@ -24,4 +24,3 @@ export const fontWeights = [
 // Major Third font scale with 11 members (5 = 1rem)
 // see https://type-scale.com/?size=22&scale=1.250
 export const fontSizes = genInterval({ iv: 'M3' }).map(rem);
-console.log({ fontSizes });

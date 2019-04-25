@@ -35,8 +35,6 @@ export const palette = [
   ['White', '#FFFFFF'],
 ].reduce((p, [name, hex]) => ({ ...p, [camelCase(name)]: tinycolor(hex) }), {});
 
-console.log({ palette });
-
 const {
   bittersweet,
   black,
@@ -87,7 +85,6 @@ export const shades = color => {
   const alt = [[50, 30], [30, 30], [10, 15], [5, 5]].map(([f, s]) =>
     base.lighten(f).saturate(s),
   );
-  console.log({ base, lighter, darker, alt });
   return [...lighter, base, ...darker, ...alt];
 };
 
@@ -95,8 +92,5 @@ export const hover = color => {
   const base = tinycolor(color);
   return base.isLight() ? base.darken(6) : base.lighten(6);
 };
-
-console.log({ reds: shades(curiousBlue).map(c => c.toString()) });
-console.log({ hover: hover(curiousBlue) });
 
 export default colors;

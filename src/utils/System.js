@@ -1,7 +1,7 @@
-import React from 'react';
+/* eslint-disable react/forbid-foreign-prop-types */
 import styled from '@emotion/styled';
 import isPropValid from '@emotion/is-prop-valid';
-import { omit, get } from 'lodash';
+import { omit, get, keys, uniq } from 'lodash';
 import * as ssexports from 'styled-system';
 
 /**
@@ -28,25 +28,36 @@ const styleKeys = Object.keys(styles).filter(
   key => typeof styles[key] === 'function',
 );
 
-const propNames = styleKeys.reduce((a, key) => {
-  const names = Object.keys(styles[key].propTypes || {});
-  return [...a, ...names];
-}, []);
+console.log({ styleKeys });
+
+const propNames = uniq(
+  styleKeys.reduce((a, key) => [...a, ...keys(styles[key].propTypes)], []),
+);
+
+console.log({ propNames });
 
 const extensionProps = ['is', 'as', 'tag', 'extend'];
-const _blacklist = ['css', ...extensionProps, ...propNames];
-
-// const tag = React.forwardRef(({ blacklist = [], ...props }, ref) => {
-//   const { extend } = props;
-//   const asTag = props.tag || props.is || props.as;
-//   const Base = extend && asTag ? extend.withComponent(asTag) : asTag || extend;
-//   const nextProps = omit(
-//     props,
-//     typeof Base === 'string' ? [..._blacklist, ...blacklist] : ['extend'],
-//   );
-//   console.log({ extend, asTag, Base, props, nextProps });
-//   return React.createElement(Base, { ...nextProps, ref });
-// });
+const otherProps = [
+  'primary',
+  'secondary',
+  'success',
+  'info',
+  'warning',
+  'danger',
+  'error',
+  'inline',
+  'lowercase',
+  'uppercase',
+  'capitalize',
+  'nowrap',
+  'gray',
+  'hidden',
+  'hoverable',
+  'truncate',
+  'plain',
+  'centered',
+];
+const _blacklist = ['css', ...extensionProps, ...propNames, ...otherProps]; // .filter(p => !['width', 'height'].includes(p));
 
 const getPropTypes = styleFuncs =>
   styleFuncs
@@ -61,20 +72,31 @@ const getPropTypes = styleFuncs =>
 
 const css = props => props.css;
 
+const filterProps = prop => {
+  const isValid = isPropValid(prop);
+  const isBlacklisted = _blacklist.includes(prop);
+  if (isBlacklisted && isValid) console.log({ prop, isValid, isBlacklisted });
+  return isValid && !isBlacklisted;
+};
+
 const system = (name, props = {}, ...keysOrStyles) => {
   const requestedStyles = keysOrStyles.map(
     keyOrStyle => styles[keyOrStyle] || keyOrStyle,
   );
+  console.log({ name, props });
   const propTypes = getPropTypes(requestedStyles);
   const baseProps = get(props, 'extend.defaultProps', {});
   const localProps = omit(props, extensionProps);
   const { extend } = props;
   const asTag = props.as || props.tag || props.is;
   const Base = extend || asTag || 'div';
+  console.log({ Base, localProps, baseProps, propTypes });
   if (extend && asTag) {
     localProps.as = asTag;
   }
-  const comp = styled(Base)(...requestedStyles, css);
+  const comp = styled(Base, {
+    shouldForwardProp: prop => filterProps(prop, Base),
+  })(...requestedStyles, css);
   comp.defaultProps = { ...baseProps, ...localProps };
   comp.propTypes = propTypes;
   comp.systemComponent = true;

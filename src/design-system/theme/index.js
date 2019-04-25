@@ -17,8 +17,6 @@ import lineHeights from './lineHeights';
 import space from './space';
 import textStyles from './textStyles';
 
-export { default as GlobalStyles } from './GlobalStyles';
-
 const theme = {
   baseFontSize,
   borders,

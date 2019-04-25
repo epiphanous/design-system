@@ -44,5 +44,4 @@ const shadows = [
   createShadow(0, 11, 15, -7, 0, 24, 38, 3, 0, 9, 46, 8),
 ];
 
-// console.log(shadows[2]);
 export default shadows;
