@@ -57,7 +57,13 @@ const AdornedInputField = ({
   const renderLabel = () => {
     if (typeof label === 'string') {
       return (
-        <Label p={p} {...labelProps}>
+        <Label
+          p={p}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          {...labelProps}
+        >
           {label}
         </Label>
       );
@@ -66,7 +72,17 @@ const AdornedInputField = ({
   };
   const renderIcon = () => {
     if (typeof icon === 'string') {
-      return <IconButton p={p} name={icon} size={32} {...iconProps} />;
+      return (
+        <IconButton
+          p={p}
+          name={icon}
+          size={32}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          {...iconProps}
+        />
+      );
     }
     return icon;
   };
@@ -74,7 +90,6 @@ const AdornedInputField = ({
   return (
     <Grid
       gridTemplateColumns={gridTemplateColumns}
-      gridColumnGap={1}
       borderRadius={borderRadius}
       boxShadow={boxShadow}
       {...props}
