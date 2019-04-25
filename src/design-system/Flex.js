@@ -5,12 +5,12 @@ const Flex = system(
   'Flex',
   {
     extend: Box,
-    display: 'flex',
   },
-  (props) => ({
+  props => ({
     justifyContent: props.centered && 'center',
     alignItems: props.centered && 'center',
-  })
+    display: props.inline ? 'inline-flex' : 'flex',
+  }),
 );
 
 export default Flex;

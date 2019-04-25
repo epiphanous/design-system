@@ -2,7 +2,7 @@ import React from 'react';
 import cleanElement from 'clean-element';
 import system from '../utils/System';
 import theme from './theme';
-import Box from './Box';
+import { Flex } from '.';
 
 const { icons } = theme;
 
@@ -18,7 +18,7 @@ const Base = props => {
   }
 
   return (
-    <Box display="inline-block" {...otherProps}>
+    <Flex inline centered {...otherProps}>
       <CleanSvg
         viewBox={icon.viewBox}
         width={size}
@@ -27,7 +27,7 @@ const Base = props => {
       >
         <path d={icon.body[0].props.d} />
       </CleanSvg>
-    </Box>
+    </Flex>
   );
 };
 

@@ -77,6 +77,7 @@ const Box = system(
   'colorStyle',
   'buttonStyle',
   props => ({
+    display: props.inline && 'inline-block',
     overflowY: (props.scrollable || props.vscrollable) && 'auto',
     overflowX: (props.scrollable || props.hscrollable) && 'auto',
     color: hoverColors(props),
