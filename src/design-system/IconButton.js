@@ -1,6 +1,6 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import { Text, Flex, Icon } from '.';
+import targetedProps from '../utils/targetedProps';
 
 const vert = lp => lp === 'top' || lp === 'bottom';
 const before = lp => lp === 'left' || lp === 'top';
@@ -15,31 +15,43 @@ const IconButton = ({
   hoverable = true,
   disabled = false,
   ...props
-}) => (
-  <Flex
-    {...props}
-    disabled={disabled}
-    hoverable={hoverable}
-    flexDirection={vert(labelPosition) ? 'column' : 'row'}
-    flexWrap="nowrap"
-    whiteSpace="nowrap"
-    alignItems="center"
-  >
-    <Icon name={name} size={size} order={before(labelPosition) ? 2 : 1} />
-    <Text
-      bg="transparent"
+}) => {
+  const iconProps = targetedProps(props, 'icon');
+  const labelProps = targetedProps(props, 'label');
+  return (
+    <Flex
+      {...props}
       disabled={disabled}
-      order={before(labelPosition) ? 1 : 2}
-      ml={labelPosition === 'right' && labelMargin}
-      mr={labelPosition === 'left' && labelMargin}
-      mt={labelPosition === 'bottom' && labelMargin}
-      mb={labelPosition === 'top' && labelMargin}
-      textStyle="truncate"
+      hoverable={hoverable}
+      flexDirection={vert(labelPosition) ? 'column' : 'row'}
+      flexWrap="nowrap"
+      whiteSpace="nowrap"
+      alignItems="center"
     >
-      {children || label}
-    </Text>
-  </Flex>
-);
+      <Icon
+        name={name}
+        size={size}
+        order={before(labelPosition) ? 2 : 1}
+        {...iconProps}
+      />
+      {(children || label) && (
+        <Text
+          bg="transparent"
+          disabled={disabled}
+          order={before(labelPosition) ? 1 : 2}
+          ml={labelPosition === 'right' && labelMargin}
+          mr={labelPosition === 'left' && labelMargin}
+          mt={labelPosition === 'bottom' && labelMargin}
+          mb={labelPosition === 'top' && labelMargin}
+          textStyle="truncate"
+          {...labelProps}
+        >
+          {children || label}
+        </Text>
+      )}
+    </Flex>
+  );
+};
 
 IconButton.displayName = 'IconButton';
 

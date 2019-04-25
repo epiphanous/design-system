@@ -1,4 +1,5 @@
-import {camelCase, find} from 'lodash';
+import { camelCase, find } from 'lodash';
+import tinycolor from 'tinycolor2';
 
 const hues = [
   'red',
@@ -17,13 +18,13 @@ const hues = [
 
 const neutralities = [['dark', 0.45], ['neutral', 0.8], ['light', 1.0]];
 
-const hex2rgb = (hex) => [
+const hex2rgb = hex => [
   parseInt(hex.substr(1, 2), 16),
   parseInt(hex.substr(3, 2), 16),
   parseInt(hex.substr(5, 2), 16),
 ];
 
-const rgb2hsl = (rgb) => {
+const rgb2hsl = rgb => {
   let [r, g, b] = rgb;
   r /= 255;
   g /= 255;
@@ -41,7 +42,7 @@ const rgb2hsl = (rgb) => {
   return [h / 6, s, l];
 };
 
-const hueLabel = (hsl) => {
+const hueLabel = hsl => {
   const [h, s] = hsl;
   const len = hues.length;
   const part = 360 / len;
@@ -50,7 +51,7 @@ const hueLabel = (hsl) => {
   return h === 0 && s === 0 ? 'gray' : hues[index];
 };
 
-const neutralityLabel = (hsl) => find(neutralities, (n) => hsl[2] <= n[1])[0];
+const neutralityLabel = hsl => find(neutralities, n => hsl[2] <= n[1])[0];
 
 // const rgb2hex = (rgb) =>
 //   `#${rgb.map((c) => {
@@ -65,12 +66,19 @@ const rgba = (rgb, alpha) => `rgba(${rgb.concat([alpha]).join(',')})`;
 
 class Color {
   name;
+
   key;
+
   hex;
+
   _rgb;
+
   _hsl;
+
   hue;
+
   saturation;
+
   lightness;
 
   constructor(name, hex) {
@@ -90,7 +98,7 @@ class Color {
   }
 
   _shade(b) {
-    return this._rgb.map((c) => c * (1 + b));
+    return this._rgb.map(c => c * (1 + b));
   }
 
   darken(by = defaultShade, alpha = defaultAlpha) {

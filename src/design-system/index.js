@@ -7,6 +7,7 @@ export { default as Container } from './Container';
 export { default as Flex } from './Flex';
 export { default as Form } from './Form';
 export { default as FlexPanel } from './FlexPanel';
+export { default as Grid } from './Grid';
 export {
   default as Heading,
   Heading1,

@@ -1,4 +1,5 @@
-import Color from '../../utils/Color';
+import tinycolor from 'tinycolor2';
+import { camelCase } from 'lodash';
 
 // https://www.color-blindness.com/color-name-hue/
 export const palette = [
@@ -32,9 +33,9 @@ export const palette = [
   ['Suva Gray', '#898989'],
   ['Tropical Blue', '#BDD2ED'],
   ['White', '#FFFFFF'],
-]
-  .map(([name, hex]) => new Color(name, hex))
-  .reduce((p, c) => ({ ...p, [c.key]: c }), {});
+].reduce((p, [name, hex]) => ({ ...p, [camelCase(name)]: tinycolor(hex) }), {});
+
+console.log({ palette });
 
 const {
   bittersweet,
@@ -47,59 +48,55 @@ const {
   nightRider,
   quartz,
   solitude,
-  suvaGray,
-  tropicalBlue,
   white,
 } = palette;
 
 // colors
 const colors = {
   // backgrounds
-  background: solitude.hex,
-  surface: white.hex,
-  primary: curiousBlue.hex,
-  secondary: quartz.hex,
-  success: mediumSeaGreen.hex,
-  warning: creamCan.hex,
-  info: malibu.hex,
-  error: bittersweet.hex,
-
-  hover: {
-    background: solitude.darken(),
-    surface: white.darken(),
-    primary: curiousBlue.darken(),
-    secondary: quartz.darken(),
-    success: mediumSeaGreen.darken(),
-    warning: creamCan.lighten(),
-    info: malibu.darken(),
-    error: bittersweet.lighten(0.25),
-  },
+  background: solitude.toString(),
+  surface: white.toString(),
+  primary: curiousBlue.toString(),
+  secondary: quartz.toString(),
+  success: mediumSeaGreen.toString(),
+  warning: creamCan.toString(),
+  info: malibu.toString(),
+  error: bittersweet.toString(),
+  gray: linkWater.toString(),
 
   // foregrounds
   on: {
-    background: nightRider.hex,
-    surface: nightRider.hex,
-    primary: white.hex,
-    secondary: black.hex,
-    success: white.hex,
-    warning: nightRider.hex,
-    info: white.hex,
-    error: white.hex,
+    background: nightRider.toString(),
+    surface: nightRider.toString(),
+    primary: white.toString(),
+    secondary: black.toString(),
+    success: white.toString(),
+    warning: nightRider.toString(),
+    info: white.toString(),
+    error: white.toString(),
+    gray: black.toString(),
   },
 
-  misc: {
-    border: linkWater.hex,
-    disabled: linkWater.hex,
-    primaryMuted: tropicalBlue.hex,
-    on: {
-      disabled: suvaGray.hex,
-      primaryMuted: white.hex,
-    },
-    hover: {
-      disabled: linkWater.hex,
-      primaryMuted: tropicalBlue.darken(),
-    },
-  },
+  misc: {},
 };
+
+export const shades = color => {
+  const base = tinycolor(color);
+  const lighter = [52, 37, 26, 12, 6].map(f => base.lighten(f));
+  const darker = [6, 12, 18, 24].map(f => base.darken(f));
+  const alt = [[50, 30], [30, 30], [10, 15], [5, 5]].map(([f, s]) =>
+    base.lighten(f).saturate(s),
+  );
+  console.log({ base, lighter, darker, alt });
+  return [...lighter, base, ...darker, ...alt];
+};
+
+export const hover = color => {
+  const base = tinycolor(color);
+  return base.isLight() ? base.darken(6) : base.lighten(6);
+};
+
+console.log({ reds: shades(curiousBlue).map(c => c.toString()) });
+console.log({ hover: hover(curiousBlue) });
 
 export default colors;

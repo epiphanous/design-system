@@ -9,6 +9,8 @@ import {
   Button,
   Card,
   Flex,
+  FlexPanel,
+  Grid,
   Form,
   Heading,
   Heading2,
@@ -82,35 +84,36 @@ const Home = inject('app')(
         </Section>
         <Section>
           <Heading>Fields</Heading>
-          <Flex alignItems="center">
-            <Label>Search:</Label>
-            <InputField
-              ml={2}
-              p={2}
-              maxWidth="12rem"
-              name="search"
-              placeholder="type something..."
-              value={app.getFormValue('fields', 'search')}
-              onChange={value => app.setFormValue('fields', 'search', value)}
-              borderRadius="sm"
-            />
-            <IconButton
-              name="search"
-              size={40}
-              ml={1}
-              p={1}
-              pr={2}
-              borderRadius="sm"
-            />
-          </Flex>
-          <Flex alignItems="center">
+          <FlexPanel maxWidth={640} alignItems="center">
+            <Grid
+              gridTemplateColumns="auto 1fr auto"
+              gridGap={2}
+              alignItems="center"
+              mb={3}
+            >
+              <Label>Search:</Label>
+              <InputField
+                width={1}
+                p={2}
+                name="search"
+                placeholder="type something..."
+                value={app.getFormValue('fields', 'search')}
+                onChange={value => app.setFormValue('fields', 'search', value)}
+                borderRadius="sm"
+              />
+              <IconButton
+                name="search"
+                size={40}
+                ml={1}
+                p={1}
+                pr={2}
+                borderRadius="sm"
+              />
+            </Grid>
             <AdornedInputField
               labelPrimary
-              labelCss={{
-                // hack to fix rendering
-                borderBottom: '1px solid #3374c8',
-              }}
               iconSuccess
+              inputPlaceholder="Enter a number"
               my={2}
               label="Amount:"
               icon="check"
@@ -118,7 +121,7 @@ const Home = inject('app')(
               value={app.getFormValue('fields', 'amount')}
               onChange={value => app.setFormValue('fields', 'amount', value)}
             />
-          </Flex>
+          </FlexPanel>
         </Section>
         <Section>
           <Heading>Buttons</Heading>

@@ -1,30 +1,18 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
-import InputField from './InputField';
-import Flex from './Flex';
-import IconButton from './IconButton';
-import Label from './Label';
-import system from '../utils/System';
+import { Grid, IconButton, Label, InputField } from '.';
+import targetedProps from '../utils/targetedProps';
 
-const StyledAdornedInputField = system('StyledAdornedInputField', {
-  extend: Flex,
-  alignItems: 'center',
-  boxShadow: 2,
-});
-
-const targetedProps = (props, prefix) => {
-  const obj = {};
-  const plen = prefix.length;
-  const pfxPattern = new RegExp(`^${prefix}`);
-  Object.keys(props).forEach(key => {
-    if (key.startsWith(prefix) && plen < key.length) {
-      const newKey = key.replace(pfxPattern, '');
-      obj[newKey.substring(0, 1).toLowerCase() + newKey.substring(1)] =
-        props[key];
-      delete props[key];
-    }
-  });
-  return obj;
+const getTemplateColumns = ({ label, labelPlacement, icon, iconPlacement }) => {
+  const template = ['1fr'];
+  if (label) {
+    if (labelPlacement === 'right') template.push('auto');
+    else template.unshift('auto');
+  }
+  if (icon) {
+    if (iconPlacement === 'left') template.unshift('auto');
+    else template.push('auto');
+  }
+  return template.join(' ');
 };
 
 const AdornedInputField = ({
@@ -34,39 +22,65 @@ const AdornedInputField = ({
   labelPlacement = 'left',
   p = 2,
   borderRadius = 'sm',
+  boxShadow = 3,
   onChange,
   value,
   type = 'text',
   ...props
 }) => {
+  const gridTemplateColumns = getTemplateColumns({
+    icon,
+    label,
+    iconPlacement,
+    labelPlacement,
+  });
   const iconProps = targetedProps(props, 'icon');
   const inputProps = targetedProps(props, 'input');
   const labelProps = targetedProps(props, 'label');
   const wantsBr = ['xs', 'sm', 'md', 'lg'].includes(borderRadius);
-  const pl = wantsBr ? x => (iconPlacement === x ? 'l' : 'r') : () => '';
+  const pl = wantsBr
+    ? x => (iconPlacement === x ? 'left.' : 'right.')
+    : () => '';
   if (icon) {
-    iconProps.borderRadius = `${borderRadius}${pl('left')}`;
+    iconProps.borderRadius = `${pl('left')}${borderRadius}`;
   }
   if (label) {
-    labelProps.borderRadius = `${borderRadius}${pl('right')}`;
+    labelProps.borderRadius = `${pl('right')}${borderRadius}`;
   }
   if (icon && label) {
     inputProps.borderRadius = 'none';
   } else if (icon) {
-    inputProps.borderRadius = `${borderRadius}${pl('right')}`;
+    inputProps.borderRadius = `${pl('right')}${borderRadius}`;
   } else {
-    inputProps.borderRadius = `${borderRadius}${pl('right')}`;
+    inputProps.borderRadius = `${pl('right')}${borderRadius}`;
   }
+  const renderLabel = () => {
+    if (typeof label === 'string') {
+      return (
+        <Label p={p} {...labelProps}>
+          {label}
+        </Label>
+      );
+    }
+    return label;
+  };
+  const renderIcon = () => {
+    if (typeof icon === 'string') {
+      return <IconButton p={p} name={icon} size={32} {...iconProps} />;
+    }
+    return icon;
+  };
+
   return (
-    <StyledAdornedInputField borderRadius={borderRadius} {...props}>
-      {label &&
-        (typeof label === 'string' ? (
-          <Label p={p} {...labelProps}>
-            {label}
-          </Label>
-        ) : (
-          { label }
-        ))}
+    <Grid
+      gridTemplateColumns={gridTemplateColumns}
+      gridColumnGap={1}
+      borderRadius={borderRadius}
+      boxShadow={boxShadow}
+      {...props}
+    >
+      {label && labelPlacement === 'left' && renderLabel()}
+      {icon && iconPlacement === 'left' && renderIcon()}
       <InputField
         plain
         p={p}
@@ -75,23 +89,12 @@ const AdornedInputField = ({
         onChange={onChange}
         {...inputProps}
       />
-      {icon &&
-        (typeof icon === 'string' ? (
-          <IconButton p={p} name={icon} size={32} {...iconProps} />
-        ) : (
-          { icon }
-        ))}
-    </StyledAdornedInputField>
+      {icon && iconPlacement === 'right' && renderIcon()}
+      {label && labelPlacement === 'right' && renderLabel()}
+    </Grid>
   );
 };
 
 AdornedInputField.displayName = 'AdornedInputField';
-AdornedInputField.propTypes = {
-  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  iconPlacement: PropTypes.oneOf(['left', 'right']),
-  label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  labelPlacement: PropTypes.oneOf(['left', 'right']),
-  ...StyledAdornedInputField.propTypes,
-};
 
 export default AdornedInputField;
