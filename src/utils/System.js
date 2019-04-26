@@ -72,7 +72,7 @@ const getPropTypes = styleFuncs =>
 
 const css = props => props.css;
 
-const filterProps = prop => {
+const shouldForwardProp = prop => {
   const isValid = isPropValid(prop);
   const isBlacklisted = _blacklist.includes(prop);
   if (isBlacklisted && isValid) console.log({ prop, isValid, isBlacklisted });
@@ -94,9 +94,8 @@ const system = (name, props = {}, ...keysOrStyles) => {
   if (extend && asTag) {
     localProps.as = asTag;
   }
-  const comp = styled(Base, {
-    shouldForwardProp: prop => filterProps(prop, Base),
-  })(...requestedStyles, css);
+  const opts = typeof Base === 'string' && { shouldForwardProp };
+  const comp = styled(Base, opts)(...requestedStyles, css);
   comp.defaultProps = { ...baseProps, ...localProps };
   comp.propTypes = propTypes;
   comp.systemComponent = true;

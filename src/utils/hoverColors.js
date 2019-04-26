@@ -1,6 +1,7 @@
 import { themeGet } from 'styled-system';
+import { hover } from '../design-system/theme/colors';
 
-const hoverColors = (props) => {
+const hoverColors = props => {
   const {
     disabled,
     active,
@@ -11,28 +12,56 @@ const hoverColors = (props) => {
     info,
     error,
     danger,
-    _bg,
-    _hover,
-    _prop = 'bg',
-    _border = _prop === 'borderColor',
+    color,
+    bg,
+    borderColor,
+    _bg, // if true, we want the background color
+    _hover, // if true, we're in hover state
+    _prop = 'bg', // the property to
   } = props;
-  if (props.hasOwnProperty('color') && !disabled && !_bg && !_hover) {
-    return themeGet(`colors.${props.color}`)(props);
-  }
-  let color = props[_prop] || (_hover ? 'background' : 'inherit');
-  if (disabled) color = 'disabled';
-  else if (active) color = 'active';
-  else if (primary) color = 'primary';
-  else if (secondary) color = 'secondary';
-  else if (success) color = 'success';
-  else if (warning) color = 'warning';
-  else if (info) color = 'info';
-  else if (error) color = 'error';
-  else if (danger) color = 'danger';
-  const hv = _hover && !disabled ? 'hover.' : '';
-  const on = _bg || _border ? '' : 'on.';
 
-  return themeGet(`colors.${hv}${on}${color}`)(props);
+  let key = null;
+  let result = null;
+
+  // asking for border?
+  const _border = _prop === 'borderColor';
+
+  // asking for on (fg/text) color?
+  const _on = !_bg && !_border;
+  let specified = false;
+
+  if (disabled) key = 'disabled';
+  else if (_on && color) {
+    specified = true;
+    key = color;
+  } else if (_bg && bg) {
+    specified = true;
+    key = bg;
+  } else if (_border && borderColor) {
+    specified = true;
+    key = borderColor;
+  } else if (active) key = 'active';
+  else if (primary) key = 'primary';
+  else if (secondary) key = 'secondary';
+  else if (success) key = 'success';
+  else if (warning) key = 'warning';
+  else if (info) key = 'info';
+  else if (error) key = 'error';
+  else if (danger) key = 'danger';
+
+  if (key) {
+    if (_on && !specified) key = `on.${key}`;
+    result = themeGet(`colors.${key}`)(props);
+    if (result && _hover) {
+      const h = hover(result);
+      if (h) result = h.toString();
+    }
+  }
+
+  if (_bg && primary && !specified)
+    console.log({ _prop, _bg, _on, _border, _hover, specified, key, result });
+
+  return result;
 };
 
 export default hoverColors;

@@ -7,11 +7,11 @@ import { ThemeProvider } from 'emotion-theming';
 import i18n from './i18n';
 import { App } from './components';
 import stores from './stores';
-import { theme } from './design-system';
+import { theme, Loading } from './design-system';
 
 render(
   <Provider {...stores}>
-    <Suspense fallback="errors">
+    <Suspense fallback={<Loading />}>
       <I18nextProvider i18n={i18n}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>

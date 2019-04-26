@@ -31,6 +31,7 @@ export { default as RadioGroup } from './RadioGroup';
 export { default as Relative } from './Relative';
 export { default as Section } from './Section';
 export { default as Select } from './Select';
+export { default as Loading } from './Loading';
 export { default as Text } from './Text';
 export {
   default as ToggleButton,
