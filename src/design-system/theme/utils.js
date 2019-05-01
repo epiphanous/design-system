@@ -29,9 +29,10 @@ const intervals = {
 };
 // iv - the interval;
 // half - number of elements to generate above and below unit;
-export const genInterval = ({ iv = 'M3', half = 5 }) => {
+export const genInterval = ({ iv = 'M3', half = 5, addZero = false }) => {
   const f = intervals[iv];
   const scale = [];
+  if (addZero) scale.push(0);
   for (let i = -half; i <= half; i += 1) {
     scale.push(round(f ** i));
   }

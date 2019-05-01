@@ -77,13 +77,16 @@ const Box = system(
   'colorStyle',
   'buttonStyle',
   props => ({
-    display: props.inline && 'inline-block',
+    display:
+      props.inline &&
+      (props.display || 'block').replace(/^(inline-)?/, 'inline-'),
     overflowY: (props.scrollable || props.vscrollable) && 'auto',
     overflowX: (props.scrollable || props.hscrollable) && 'auto',
+    transform: props.transform,
     color: hoverColors(props),
     backgroundColor: hoverColors({ ...props, _bg: true }),
-    borderColor: hoverColors({ ...props, _prop: 'borderColor' }),
-    cursor: props.hoverable && 'pointer',
+    borderColor: hoverColors({ ...props, _prop: 'borderColor', debug: true }),
+    cursor: props.cursor || (props.hoverable && 'pointer'),
     '&:hover': props.hoverable && {
       color: hoverColors({ ...props, _hover: true }),
       backgroundColor: hoverColors({ ...props, _bg: true, _hover: true }),

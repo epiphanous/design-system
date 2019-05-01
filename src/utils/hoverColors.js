@@ -1,5 +1,5 @@
 import { themeGet } from 'styled-system';
-import { hover } from '../design-system/theme/colors';
+import { hover, greyOut } from '../design-system/theme/colors';
 
 const hoverColors = props => {
   const {
@@ -30,8 +30,7 @@ const hoverColors = props => {
   const _on = !_bg && !_border;
   let specified = false;
 
-  if (disabled) key = 'disabled';
-  else if (_on && color) {
+  if (_on && color) {
     specified = true;
     key = color;
   } else if (_bg && bg) {
@@ -40,7 +39,8 @@ const hoverColors = props => {
   } else if (_border && borderColor) {
     specified = true;
     key = borderColor;
-  } else if (active) key = 'active';
+  } else if (_border) key = 'border';
+  else if (active) key = 'active';
   else if (primary) key = 'primary';
   else if (secondary) key = 'secondary';
   else if (success) key = 'success';
@@ -52,14 +52,16 @@ const hoverColors = props => {
   if (key) {
     if (_on && !specified) key = `on.${key}`;
     result = themeGet(`colors.${key}`)(props);
-    if (result && _hover) {
-      const h = hover(result);
-      if (h) result = h.toString();
+    if (result) {
+      if (disabled) {
+        const g = greyOut(result);
+        if (g) result = g.toString();
+      } else if (_hover) {
+        const h = hover(result);
+        if (h) result = h.toString();
+      }
     }
   }
-
-  if (_bg && primary && !specified)
-    console.log({ _prop, _bg, _on, _border, _hover, specified, key, result });
 
   return result;
 };

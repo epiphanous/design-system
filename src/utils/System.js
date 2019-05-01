@@ -28,16 +28,13 @@ const styleKeys = Object.keys(styles).filter(
   key => typeof styles[key] === 'function',
 );
 
-console.log({ styleKeys });
-
 const propNames = uniq(
   styleKeys.reduce((a, key) => [...a, ...keys(styles[key].propTypes)], []),
 );
 
-console.log({ propNames });
-
 const extensionProps = ['is', 'as', 'tag', 'extend'];
 const otherProps = [
+  'animated',
   'primary',
   'secondary',
   'success',
@@ -75,7 +72,6 @@ const css = props => props.css;
 const shouldForwardProp = prop => {
   const isValid = isPropValid(prop);
   const isBlacklisted = _blacklist.includes(prop);
-  if (isBlacklisted && isValid) console.log({ prop, isValid, isBlacklisted });
   return isValid && !isBlacklisted;
 };
 
@@ -83,14 +79,12 @@ const system = (name, props = {}, ...keysOrStyles) => {
   const requestedStyles = keysOrStyles.map(
     keyOrStyle => styles[keyOrStyle] || keyOrStyle,
   );
-  console.log({ name, props });
   const propTypes = getPropTypes(requestedStyles);
   const baseProps = get(props, 'extend.defaultProps', {});
   const localProps = omit(props, extensionProps);
   const { extend } = props;
   const asTag = props.as || props.tag || props.is;
   const Base = extend || asTag || 'div';
-  console.log({ Base, localProps, baseProps, propTypes });
   if (extend && asTag) {
     localProps.as = asTag;
   }

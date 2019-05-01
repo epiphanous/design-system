@@ -1,5 +1,6 @@
 import tinycolor from 'tinycolor2';
 import { camelCase } from 'lodash';
+import { gray } from 'ansi-colors';
 
 // https://www.color-blindness.com/color-name-hue/
 export const palette = [
@@ -37,7 +38,6 @@ export const palette = [
 
 const {
   bittersweet,
-  black,
   creamCan,
   curiousBlue,
   linkWater,
@@ -52,30 +52,35 @@ const {
 // colors
 const colors = {
   // backgrounds
-  background: solitude.toString(),
-  surface: white.toString(),
   primary: curiousBlue.toString(),
   secondary: quartz.toString(),
-  success: mediumSeaGreen.toString(),
-  warning: creamCan.toString(),
   info: malibu.toString(),
+  success: mediumSeaGreen.toString(),
+  active: creamCan.toString(),
+  warning: creamCan.toString(),
   error: bittersweet.toString(),
-  gray: linkWater.toString(),
+  danger: bittersweet.toString(),
+  background: solitude.toString(),
+  surface: white.toString(),
+  border: linkWater.toString(),
 
   // foregrounds
   on: {
-    background: nightRider.toString(),
-    surface: nightRider.toString(),
     primary: white.toString(),
-    secondary: black.toString(),
-    success: white.toString(),
-    warning: nightRider.toString(),
+    secondary: nightRider.toString(),
     info: white.toString(),
+    success: white.toString(),
+    active: nightRider.toString(),
+    warning: nightRider.toString(),
     error: white.toString(),
-    gray: black.toString(),
+    danger: white.toString(),
+    background: nightRider.toString(),
+    surface: white.toString(),
   },
 
-  misc: {},
+  misc: {
+    muted: 'gray',
+  },
 };
 
 export const shades = color => {
@@ -91,6 +96,11 @@ export const shades = color => {
 export const hover = color => {
   const base = tinycolor(color);
   return base.isLight() ? base.darken(6) : base.lighten(6);
+};
+
+export const greyOut = color => {
+  const base = tinycolor(color);
+  return base.lighten(12);
 };
 
 export default colors;
