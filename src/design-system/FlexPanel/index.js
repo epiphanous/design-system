@@ -1,4 +1,4 @@
-import system from '../../utils/System';
+import system from '../utils/system';
 import Flex from '../Flex';
 
 const FlexPanel = system(

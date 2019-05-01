@@ -1,7 +1,7 @@
 import React from 'react';
 import Flex from '../Flex';
 import { RadioButton } from '../ToggleButton';
-import uniqid from '../../utils/uniqid';
+import uniqid from '../utils/uniqid';
 
 const RadioGroup = ({
   name,

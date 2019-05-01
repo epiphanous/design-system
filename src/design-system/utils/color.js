@@ -1,7 +1,27 @@
 import { themeGet } from 'styled-system';
-import { hover, greyOut } from '../design-system/theme/colors';
+import tinycolor from 'tinycolor2';
 
-const hoverColors = props => {
+export const hoverColor = color => {
+  const base = tinycolor(color);
+  return base.isLight() ? base.darken(6) : base.lighten(6);
+};
+
+export const greyOut = color => {
+  const base = tinycolor(color);
+  return base.lighten(12);
+};
+
+export const shades = color => {
+  const base = tinycolor(color);
+  const lighter = [52, 37, 26, 12, 6].map(f => base.lighten(f));
+  const darker = [6, 12, 18, 24].map(f => base.darken(f));
+  const alt = [[50, 30], [30, 30], [10, 15], [5, 5]].map(([f, s]) =>
+    base.lighten(f).saturate(s),
+  );
+  return [...lighter, base, ...darker, ...alt];
+};
+
+export default props => {
   const {
     disabled,
     active,
@@ -39,8 +59,7 @@ const hoverColors = props => {
   } else if (_border && borderColor) {
     specified = true;
     key = borderColor;
-  } else if (_border) key = 'border';
-  else if (active) key = 'active';
+  } else if (active) key = 'active';
   else if (primary) key = 'primary';
   else if (secondary) key = 'secondary';
   else if (success) key = 'success';
@@ -48,6 +67,7 @@ const hoverColors = props => {
   else if (info) key = 'info';
   else if (error) key = 'error';
   else if (danger) key = 'danger';
+  else if (_border) key = 'border';
 
   if (key) {
     if (_on && !specified) key = `on.${key}`;
@@ -57,7 +77,7 @@ const hoverColors = props => {
         const g = greyOut(result);
         if (g) result = g.toString();
       } else if (_hover) {
-        const h = hover(result);
+        const h = hoverColor(result);
         if (h) result = h.toString();
       }
     }
@@ -65,5 +85,3 @@ const hoverColors = props => {
 
   return result;
 };
-
-export default hoverColors;

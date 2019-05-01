@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import system from '../../utils/System';
+import system from '../utils/system';
 import Text from '../Text';
 
 const StyledHref = system('StyledHref', {

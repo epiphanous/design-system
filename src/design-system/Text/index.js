@@ -1,5 +1,4 @@
-import { themeGet } from 'styled-system';
-import system from '../../utils/System';
+import system from '../utils/system';
 import Box from '../Box';
 
 const caseify = ({ lowercase, uppercase, capitalize }) => {

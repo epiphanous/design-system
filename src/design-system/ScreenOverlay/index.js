@@ -1,4 +1,4 @@
-import system from '../../utils/System';
+import system from '../utils/system';
 import Absolute from '../Absolute';
 
 const ScreenOverlay = system('ScreenOverlay', {
@@ -13,4 +13,3 @@ const ScreenOverlay = system('ScreenOverlay', {
 });
 
 export default ScreenOverlay;
-

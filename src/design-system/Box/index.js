@@ -1,5 +1,5 @@
-import system from '../../utils/System';
-import hoverColors from '../../utils/hoverColors';
+import system from '../utils/system';
+import getColor from '../utils/color';
 
 const Box = system(
   'Box',
@@ -83,14 +83,14 @@ const Box = system(
     overflowY: (props.scrollable || props.vscrollable) && 'auto',
     overflowX: (props.scrollable || props.hscrollable) && 'auto',
     transform: props.transform,
-    color: hoverColors(props),
-    backgroundColor: hoverColors({ ...props, _bg: true }),
-    borderColor: hoverColors({ ...props, _prop: 'borderColor', debug: true }),
+    color: getColor(props),
+    backgroundColor: getColor({ ...props, _bg: true }),
+    borderColor: getColor({ ...props, _prop: 'borderColor', debug: true }),
     cursor: props.cursor || (props.hoverable && 'pointer'),
     '&:hover': props.hoverable && {
-      color: hoverColors({ ...props, _hover: true }),
-      backgroundColor: hoverColors({ ...props, _bg: true, _hover: true }),
-      borderColor: hoverColors({
+      color: getColor({ ...props, _hover: true }),
+      backgroundColor: getColor({ ...props, _bg: true, _hover: true }),
+      borderColor: getColor({
         ...props,
         _prop: 'borderColor',
         _hover: true,

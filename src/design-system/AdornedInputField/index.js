@@ -3,7 +3,7 @@ import Grid from '../Grid';
 import IconButton from '../IconButton';
 import Label from '../Label';
 import InputField from '../InputField';
-import targetedProps from '../../utils/targetedProps';
+import targetedProps from '../utils/targetedProps';
 
 const getTemplateColumns = ({ label, labelPlacement, icon, iconPlacement }) => {
   const template = ['1fr'];

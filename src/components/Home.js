@@ -30,7 +30,7 @@ import {
   Text,
   VideoPlayer,
 } from '../design-system';
-import uniqid from '../utils/uniqid';
+import uniqid from '../design-system/utils/uniqid';
 
 const Home = inject('app')(
   observer(({ app, t }) => (
@@ -56,7 +56,7 @@ const Home = inject('app')(
             <Card mx="auto" fontSize={3} maxWidth={640}>
               <Relative>
                 <Image
-                  borderRadius="0.25em 0.25em 0 0"
+                  borderRadius="top.sm"
                   width="100%"
                   src="https://images.unsplash.com/photo-1533208087231-c3618eab623c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1963&q=80"
                 />
@@ -131,13 +131,33 @@ const Home = inject('app')(
             <Heading>Buttons</Heading>
             <Flex flexWrap="wrap">
               <Button>Normal</Button>
-              <Button disabled>Disabled</Button>
               <Button primary>Primary</Button>
               <Button secondary>Secondary</Button>
               <Button success>Success</Button>
               <Button warning>Warning</Button>
               <Button info>Info</Button>
               <Button error>Error</Button>
+            </Flex>
+            <Flex flexWrap="wrap">
+              <Button disabled>Normal</Button>
+              <Button primary disabled>
+                Primary
+              </Button>
+              <Button secondary disabled>
+                Secondary
+              </Button>
+              <Button success disabled>
+                Success
+              </Button>
+              <Button warning disabled>
+                Warning
+              </Button>
+              <Button info disabled>
+                Info
+              </Button>
+              <Button error disabled>
+                Error
+              </Button>
             </Flex>
           </Section>
           <Section>
@@ -154,20 +174,18 @@ const Home = inject('app')(
               <Heading5 gridColumn="1/3">My Form</Heading5>
               {['First Name', 'Last Name', 'Date of Birth', 'City'].map(
                 label => (
-                  <LabeledInput
-                    key={uniqid()}
-                    boxShadow={0}
-                    border={1}
-                    borderRadius="sm"
-                    borderStyle="dotted"
-                    value={app.getFormValue('aform', label)}
-                    onChange={value => app.setFormValue('aform', label, value)}
-                    label={`${label}:`}
-                    gridColumn="2/3"
-                    type={/date/i.test(label) ? 'date' : 'text'}
-                    labelGridColumn="1/2"
-                    labelJustifySelf="end"
-                  />
+                  <>
+                    <Label justifySelf="end">{label}:</Label>
+                    <InputField
+                      borderRadius="sm"
+                      boxShadow={3}
+                      value={app.getFormValue('aform', label)}
+                      onChange={value =>
+                        app.setFormValue('aform', label, value)
+                      }
+                      type={/date/i.test(label) ? 'date' : 'text'}
+                    />
+                  </>
                 ),
               )}
               <Button primary gridColumn="2/3" py={2}>
@@ -185,12 +203,15 @@ const Home = inject('app')(
             >
               <Heading5 gridColumn="1/3">Another Form</Heading5>
               <FormField
+                boxShadow={3}
+                borderRadius="sm"
                 value={app.getFormValue('anotherForm', 'firstName')}
                 onChange={value =>
                   app.setFormValue('anotherForm', 'firstName', value)
                 }
                 name="firstName"
                 label="First Name"
+                labelJustifySelf="end"
               />
               <FormField
                 name="gender"
@@ -201,12 +222,15 @@ const Home = inject('app')(
                   { value: 'm', label: 'Male', icon: 'male' },
                 ]}
                 label="Gender"
+                labelJustifySelf="end"
                 onChange={value =>
                   app.setFormValue('anotherForm', 'gender', value)
                 }
               />
               <FormField
                 label="Color"
+                name="color"
+                labelJustifySelf="end"
                 type="select"
                 onChange={value =>
                   app.setFormValue('anotherForm', 'color', value)

@@ -17,7 +17,7 @@ import lineHeights from './lineHeights';
 import space from './space';
 import textStyles from './textStyles';
 
-const theme = {
+export default {
   baseFontSize,
   borders,
   borderWidths,
@@ -38,5 +38,3 @@ const theme = {
   space,
   textStyles,
 };
-
-export default theme;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { themeGet } from 'styled-system';
-import system from '../../utils/System';
+import system from '../utils/system';
 import Box from '../Box';
 
 const StyledInputField = system(
@@ -21,13 +21,11 @@ const StyledInputField = system(
     borderRadius: props.plain && 0,
     boxShadow: props.plain && 'none',
     appearance: 'none',
-    outline: 'none',
     ':focus': {
-      outline: 0,
       border: props.border && themeGet(`borders.${props.border}`)(props),
     },
     '::placeholder': {
-      color: themeGet(`colors.misc.placeholder`)(props),
+      color: themeGet(`colors.misc.muted`)(props),
     },
     '::ms-clear': {
       display: 'none',

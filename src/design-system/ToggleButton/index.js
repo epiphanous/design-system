@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import Flex from '../Flex';
 import Icon from '../Icon';
 import Label from '../Label';
-import system from '../../utils/System';
+import system from '../utils/system';
 
 const lbl = (label, name) =>
   typeof label === 'string' ? label : <Label htmlFor={name}>{label}</Label>;

@@ -7,7 +7,8 @@ import { ThemeProvider } from 'emotion-theming';
 import i18n from './i18n';
 import { App } from './components';
 import stores from './stores';
-import { theme, Loading } from './design-system';
+import theme from './theme';
+import { Loading } from './design-system';
 
 render(
   <Provider {...stores}>

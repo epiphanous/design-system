@@ -78,7 +78,7 @@ export default class AppStore {
   getFormValue(formKey, fieldKey) {
     const fields = this.getFormData(formKey);
     const fieldValue = fields.get(fieldKey) || '';
-    return fields.get(fieldKey) || '';
+    return fieldValue;
   }
 
   @action

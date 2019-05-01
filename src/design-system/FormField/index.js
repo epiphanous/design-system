@@ -5,7 +5,8 @@ import InputField from '../InputField';
 import Label from '../Label';
 import Button from '../Button';
 import Select from '../Select';
-import Relative from '../Relative';
+import targetedProps from '../utils/targetedProps';
+import uniqid from '../utils/uniqid';
 
 const getInput = ({ input, type = 'text', ...props }) => {
   if (input) return input;
@@ -27,19 +28,20 @@ const getInput = ({ input, type = 'text', ...props }) => {
   }
 };
 
-const FormField = props => {
+const FormField = ({ label, ...props }) => {
+  const id = uniqid();
+  const labelProps = targetedProps(props, 'label');
+  labelProps.key = `lbl-${id}`;
+  // eslint-disable-next-line no-param-reassign
+  props.key = `fld-${id}`;
+  const { floating } = labelProps;
   const input = getInput(props);
-  const { label, floatLabel = false } = props;
-  const lbl = <Label>{label}</Label>;
-  return floatLabel ? (
-    <Relative>
-      {input}
-      {lbl}
-    </Relative>
-  ) : (
+  const lbl = <Label {...labelProps}>{label}</Label>;
+  return (
     <>
-      {lbl}
+      {floating || lbl}
       {input}
+      {floating && lbl}
     </>
   );
 };

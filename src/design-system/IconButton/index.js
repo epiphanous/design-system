@@ -2,7 +2,7 @@ import React from 'react';
 import Text from '../Text';
 import Flex from '../Flex';
 import Icon from '../Icon';
-import targetedProps from '../../utils/targetedProps';
+import targetedProps from '../utils/targetedProps';
 
 const vert = lp => lp === 'top' || lp === 'bottom';
 const before = lp => lp === 'left' || lp === 'top';

@@ -1,4 +1,4 @@
-import system from '../../utils/System';
+import system from '../utils/system';
 import Box from '../Box';
 
 const Image = system('Image', {

@@ -1,5 +1,5 @@
 import React from 'react';
-import system from '../../utils/System';
+import system from '../utils/system';
 import Grid from '../Grid';
 
 const StyledForm = system('StyledForm', {

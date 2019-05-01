@@ -1,11 +1,14 @@
-import system from '../../utils/System';
+import { themeGet } from 'styled-system';
+import system from '../utils/system';
 import Box from '../Box';
-import theme from '../theme';
 
-const Container = system('Container', {
-  extend: Box,
-  maxWidth: theme.maxWidths,
-  mx: 'auto',
-});
+const Container = system(
+  'Container',
+  {
+    extend: Box,
+    mx: 'auto',
+  },
+  props => themeGet('maxWidths')(props),
+);
 
 export default Container;

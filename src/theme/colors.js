@@ -1,6 +1,5 @@
 import tinycolor from 'tinycolor2';
 import { camelCase } from 'lodash';
-import { gray } from 'ansi-colors';
 
 // https://www.color-blindness.com/color-name-hue/
 export const palette = [
@@ -75,32 +74,12 @@ const colors = {
     error: white.toString(),
     danger: white.toString(),
     background: nightRider.toString(),
-    surface: white.toString(),
+    surface: nightRider.toString(),
   },
 
   misc: {
     muted: 'gray',
   },
-};
-
-export const shades = color => {
-  const base = tinycolor(color);
-  const lighter = [52, 37, 26, 12, 6].map(f => base.lighten(f));
-  const darker = [6, 12, 18, 24].map(f => base.darken(f));
-  const alt = [[50, 30], [30, 30], [10, 15], [5, 5]].map(([f, s]) =>
-    base.lighten(f).saturate(s),
-  );
-  return [...lighter, base, ...darker, ...alt];
-};
-
-export const hover = color => {
-  const base = tinycolor(color);
-  return base.isLight() ? base.darken(6) : base.lighten(6);
-};
-
-export const greyOut = color => {
-  const base = tinycolor(color);
-  return base.lighten(12);
 };
 
 export default colors;

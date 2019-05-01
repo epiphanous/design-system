@@ -1,4 +1,4 @@
-import system from '../../utils/System';
+import system from '../utils/system';
 import Text from '../Text';
 
 const Label = system('Label', {
