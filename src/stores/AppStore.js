@@ -78,13 +78,11 @@ export default class AppStore {
   getFormValue(formKey, fieldKey) {
     const fields = this.getFormData(formKey);
     const fieldValue = fields.get(fieldKey) || '';
-    console.log({ method: 'get', formKey, fieldKey, fieldValue });
-    return fields.get(fieldKey) || '';
+    return fieldValue;
   }
 
   @action
   setFormValue(formKey, fieldKey, fieldValue) {
-    console.log({ method: 'set', formKey, fieldKey, fieldValue });
     const fields = this.getFormData(formKey);
     fields.set(fieldKey, fieldValue);
   }

@@ -1,4 +1,4 @@
-import { mapValues } from '../utils/theme';
+import { mapValues } from './utils';
 
 // compute for each size
 const leftr = r => `${r} 0 0 ${r}`;
