@@ -1,4 +1,4 @@
-import { themeGet } from 'styled-system';
+import { themeGet } from '@styled-system/theme-get';
 import tinycolor from 'tinycolor2';
 
 export const hoverColor = color => {

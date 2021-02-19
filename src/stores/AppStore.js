@@ -1,4 +1,4 @@
-import { observable, computed, action } from 'mobx';
+import { makeObservable, toJS, observable, computed, action } from 'mobx';
 import { get } from 'lodash';
 import packageJson from '../../package.json';
 
@@ -17,6 +17,7 @@ export default class AppStore {
 
   constructor(props = {}) {
     this.root = props.root || global || window || {};
+    makeObservable(this);
   }
 
   _root(path, defaultValue = null) {
@@ -45,7 +46,7 @@ export default class AppStore {
   }
 
   trackEvent(data) {
-    const event = Object.assign({}, this.trackingData.toJS(), data);
+    const event = Object.assign({}, toJS(this.trackingData), data);
     console.log('tracked event', event);
     (this._root.dataLayer = this._root.dataLayer || []).push(event);
   }

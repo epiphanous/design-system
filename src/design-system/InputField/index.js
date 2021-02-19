@@ -1,5 +1,5 @@
 import React from 'react';
-import { themeGet } from 'styled-system';
+import { themeGet } from '@styled-system/theme-get';
 import system from '../utils/system';
 import Box from '../Box';
 

@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import { I18nextProvider } from 'react-i18next';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import i18n from './i18n';
 import { App } from './components';
 import stores from './stores';
