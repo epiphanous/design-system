@@ -37,7 +37,7 @@
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
-    "webpack": "^5.23.0",
+    "webpack": "^5.36.1",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.2.1"
   },
@@ -57,7 +57,7 @@
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-xhr-backend": "^3.2.2",
     "lodash": "^4.17.11",
-    "mobx": "6.1.7",
+    "mobx": "6.3.0",
     "mobx-react": "^7.1.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
