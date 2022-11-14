@@ -4535,10 +4535,10 @@ mobx@6.1.7:
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.1.7.tgz#009c65f6909ee89ab42dd4b058577739f0d899df"
   integrity sha512-2iIgg2o0jd/bWAK/9KHJ1uwKHGowKyaTUM4qarJ0qGdLskYcB3sJevjjV7t7jW0WVjItz6BBlPNiZ14oHTpvMg==
 
-moment-timezone@^0.5.23:
-  version "0.5.33"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.33.tgz#b252fd6bb57f341c9b59a5ab61a8e51a73bbd22c"
-  integrity sha512-PTc2vcT8K9J5/9rDEPe5czSIKgLoGsH8UNpA4qZTVw0Vd/Uz19geE9abbIOQKaAQFcnQ3v5YEXrbSc5BpshH+w==
+moment-timezone@^0.5.39:
+  version "0.5.39"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.39.tgz#342625a3b98810f04c8f4ea917e448d3525e600b"
+  integrity sha512-hoB6suq4ISDj7BDgctiOy6zljBsdYT0++0ZzZm9rtxIvJhIbQ3nmbgSWe7dNFGurl6/7b1OUkHlmN9JWgXVz7w==
   dependencies:
     moment ">= 2.9.0"
 
